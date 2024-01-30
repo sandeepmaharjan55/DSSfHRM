@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="large-12 columns">
+        <h2>Contact Us</h2>
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="small-8">
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <label for="right-label" class="right inline">Your Name</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="text" id="fullname" placeholder="Your full name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <label for="right-label" class="right inline">E-mail Address</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="text" id="email" placeholder="A valid email address">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <label for="right-label" class="right inline">Comment</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <textarea placeholder="Your comments or questions"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-3 columns">
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="submit" class="button" value="Send">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

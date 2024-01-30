@@ -1,0 +1,95 @@
+﻿@model TaskManager.MVC5.Models.TaskViewModel
+
+@{
+    ViewBag.Title = "Assign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string skillName = string.Empty;
+}
+
+<h2>Assign</h2>
+
+
+
+    <div class="form-horizontal">
+        <h4>Task</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TaskTitle, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.TaskTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    @*<th>Skills</th>*@
+                    <th>select </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.employees)
+                {
+                    <tr>
+                        <td>@Html.Label(string.Format("{0} {1}", item.FirstName, item.LastName))</td>                       
+                       
+                        <td>
+                            <input type="checkbox" class="emp_select" empId="@item.Id" taskId="@Model.Id" /> 
+                            
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" onclick="SaveEmployee()" value="Save" class="btn btn-default" id="btn_save"/>
+            </div>
+        </div>
+    </div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script type="text/javascript">
+   
+
+   
+
+    function SaveEmployee() {
+        debugger;
+        $.each($('.emp_select'), function (i, selectChk) {
+            debugger;
+            if ($(selectChk).is(':checked')) {
+                var empId = $(selectChk).attr('empId');
+                var taskId = $(selectChk).attr('taskId')
+                $.ajax({
+                    url: "/tasks/Assign",
+                    method: "Post",
+                    data: { empId: empId, taskId: taskId },
+                    success: function (result) {
+                        if(result)
+                        {
+                            var url = "/admin/tasks";
+                            window.open(url,"_top");
+                        }
+                    }
+
+                });
+
+            }
+
+        })
+
+
+
+    }
+</script>

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TaskManager.MVC5.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employee Rank</h2>
+<table class="table">
+
+    @foreach (var item in Model.OrderBy(x=>x.Rank).Where(x=>x.designation.Equals("Employee")))
+    {
+        <tr>
+            <td>
+            @Html.Label(string.Format("{0} {1}", item.FirstName, item.LastName))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rank)
+            </td>
+        </tr>
+    }
+
+</table>
+

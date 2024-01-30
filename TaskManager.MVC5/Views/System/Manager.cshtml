@@ -1,0 +1,39 @@
+﻿@model TaskManager.MVC5.Controllers.SystemController.SystemModel
+@{
+    ViewBag.Title = "Manage Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}<br><br>
+<center>
+    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index", "Admin/Employees")'" style='width:100px;height:100px'>Employees</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Admin/Task")'" style='width:100px;height:100px'>Tasks</button>
+    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin/Reports")'" style='width:100px;height:100px'>Reports</button>
+    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Index", "Skills")'" style='width:100px;height:100px'>Skill</button>
+    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Rank", "Employees")'" style='width:100px;height:100px'>Rank</button>
+   @*<button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "Calender")'" style='width:100px;height:100px'>DssCalender</button>*@
+ </center>
+@Html.Raw(Model.Scheduler.Render())
+<div id="footer-top-border"></div>
+<style type="text/css">
+    @foreach(var state in Model.Statuses) {
+        <text> .dhx_cal_event.state_@state.id div{
+            background-color: @state.color;
+        }
+        </text>
+    }
+</style>
+
+<script type="text/javascript">
+    var data = JSON.parse('@Html.Raw(Model.Users)');
+    scheduler.templates.event_header = function (start, end, ev) {
+        return scheduler.templates.event_date(start) + " - " + scheduler.templates.event_date(end) + " (" + findById(data, ev.owner_id) + ")";
+    };
+
+    function findById(ar, id) {
+        for (var i = 0; i < ar.length; i++) {
+            if (ar[i].key == id) {
+                return ar[i].userName;
+            }
+        }
+        return "";
+    }
+</script>

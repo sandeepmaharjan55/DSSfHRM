@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "TaskDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model TaskManager.MVC5.Models.TaskDetails
+
+<div class="page row">
+
+    <span>@ViewData["user"], TaskDetails</span>
+
+
+    @if (Model.Task != null)
+    {
+        using (Html.BeginForm("Index", "System/UpdateStatus", FormMethod.Post, null))
+        {
+            @Html.Hidden("id", Model.Task.id)
+
+            <div class="center-block">
+                <div class=" text-right form-group">
+                    <span>
+
+                        @String.Format("{0:MM/dd/yyyy}", Model.Task.start_date),
+                        <b>
+                            @String.Format("{0:HH:mm}", Model.Task.start_date)
+                            &ndash; @String.Format("{0:HH:mm}", Model.Task.end_date)
+                        </b>
+                    </span>
+                </div>
+                <div class="text-left dhx_cal_ltext form-group">
+                    <h1>@Model.Task.text</h1>
+                </div>
+                <div class="text-left details form-group">
+                    <div @( string.IsNullOrEmpty(Model.Task.details) ? "style= 'color':#bbb;" : "") style="word-wrap: break-word;">@(string.IsNullOrEmpty(Model.Task.details) ? "Task has no description" : Model.Task.details)</div>
+                </div>
+                <div class="text-left form-group">
+                    <span>Status: </span>
+                    @Html.DropDownList("status_id", new SelectList(Model.Statuses, "id", "title", ViewData["status"]), new
+                    {
+                        @class = "dhx_cal_ltext",
+                        @style = "width:172px;"
+                    })
+                </div>
+
+                <div class=" text-center form-group">
+                    <input type="submit" name="result" value="Update" class="dhx_btn_set dhx_left_btn_set dhx_save_btn_set" style="width: 70px;" />
+
+                    <input type="submit" name="result" value="Cancel" class="dhx_btn_set dhx_right_btn_set dhx_delete_btn_set " style="float: right; width: 70px;" />
+                </div>
+            </div>
+
+        }
+    }
+
+</div>

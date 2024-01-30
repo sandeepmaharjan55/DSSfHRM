@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DecisionSupportSystem</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/scripts/dhtmlxscheduler/dhtmlxscheduler_flat.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+</head>
+<body>
+
+
+    <div id="header">
+        <center><h3> Decision Support System For HRM</h3></center>
+        <div id="logindisplay">
+
+            @Html.Partial("UserControl")
+        </div>
+    </div>
+    <div class="page">
+        @RenderBody()
+    </div>
+    
+    <div id="footer">
+        <p>&copy;@DateTime.Now.Year - DecisionSupportSystemForHRM</p>
+    </div>
+
+    <style type="text/css">
+        /*for month events----------*/
+        .dhx_cal_event_clear {
+            padding: 2px 0 2px 5px;
+            -ms-border-radius: 13px;
+            border-radius: 13px;
+            line-height: 14px;
+            color: white;
+        }
+
+        .state_1 {
+            background-color: #5B9BE0;
+        }
+
+        .state_2 {
+            background-color: #FE7510;
+        }
+
+        .state_3 {
+            background-color: #76B007;
+        }
+    </style>
+    <script type="text/javascript">
+        scheduler.templates.event_class = function (start, end, ev) {
+            return "state_" + ev.status_id;
+        }
+    </script>
+   
+
+</body>
+</html>

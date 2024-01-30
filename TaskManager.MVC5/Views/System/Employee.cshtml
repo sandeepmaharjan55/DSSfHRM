@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<center>
+    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index", "SendMailer")'" style='width:100px;height:50px'>Send Mail</button>
+   </center>
+ @Html.Raw(Model.Render())
+
+
+    <div id="footer-top-border"></div>
+    <script>
+
+    scheduler.attachEvent("onClick", function (id) {
+        window.location = '@Url.Action("TaskDetails","System")?id=' + id;
+    });
+    </script>
